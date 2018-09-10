@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +21,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepo;
+
+    @Autowired
+    private HttpSession httpSession;
 
     @Override
     public List<Post> findAll() {

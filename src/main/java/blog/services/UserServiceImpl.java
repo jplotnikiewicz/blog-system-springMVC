@@ -15,7 +15,6 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
 
     public static final String LOGGED_USER_SESSION_KEY = "loggedUser";
-    public boolean isLogged = false;
 
     @Autowired
     private UserRepository userRepo;
@@ -31,7 +30,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
 
-
         List<Long> ids = new ArrayList<>(1);
         ids.add(id);
         List<User> users = this.userRepo.findAllById(ids);
@@ -39,25 +37,20 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    @Override
-    public User findByUsername(String username) {
 
-        return userRepo.findByUsername(username);
+    @Override
+    public User findByUsername(String username, String password) {
+        User user = userRepo.findByUsername(username, password);
+        if(user != null)
+            httpSession.setAttribute(LOGGED_USER_SESSION_KEY, user.getFullName());
+        return user;
     }
 
     @Override
-    public boolean isValidUser(String username, String passwor) {
-
-        User user = findByUsername(username);
-        if(user !=null && passwor.equals(user.getPasswordHash())){
-
-            httpSession.setAttribute(LOGGED_USER_SESSION_KEY, username);
-            isLogged = true;
-
-            return true;
-        }
-        return false;
+    public void logout(){
+        httpSession.removeAttribute(LOGGED_USER_SESSION_KEY);
     }
+
 
     @Override
     public User create(User user) {

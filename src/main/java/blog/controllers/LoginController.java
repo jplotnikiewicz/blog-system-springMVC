@@ -34,8 +34,11 @@ public class LoginController {
             notifyService.addErrorMessage("Please fill from correclty!");
             return "users/login";
         }
-        if(!userService.isValidUser(loginForm.getUsername(), loginForm.getPassword())){
-            notifyService.addErrorMessage("Invalid login!");
+
+        User user = userService.findByUsername(loginForm.getUsername(), loginForm.getPassword());
+
+        if(user == null){
+            notifyService.addErrorMessage("Invalid login or password!");
             return "users/login";
         }
 
@@ -43,5 +46,7 @@ public class LoginController {
 
         return "redirect:/";
     }
+
+
 
 }

@@ -18,12 +18,23 @@
             <a href="posts/index.html" th:href="@{/posts}">Posts</a>
             <a href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
             <a href="users/index.html" th:href="@{/users}">Users</a>
-            <div id="logged-in-info">
-                <span>Hello, <b>(user)</b></span>
-                <form method="post" th:action="@{/users/logout}">
-                    <input type="submit" value="Logout"/>
-                </form>
+
+
+            <div id="logged-in-info" th:with="user=${session[T(blog.services.UserServiceImpl).LOGGED_USER_SESSION_KEY]}">
+                <span th:if="!${user}">
+                     <span>Hello, <b>guest</b></span>
+                     <form th:action="@{/users/login}">
+                         <input type="submit" value="Login"/>
+                     </form>
+                </span>
+                <span th:if="${user}">
+                     <span>Hello, <b><span th:text="${user}"></span></b></span>
+                     <form method="post" th:action="@{/users/logout}">
+                         <input type="submit" value="Logout"/>
+                     </form>
+                </span>
             </div>
+
 
         </header>
 
