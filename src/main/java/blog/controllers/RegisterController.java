@@ -24,7 +24,7 @@ public class RegisterController {
     NotificationService notificationService;
 
     @RequestMapping("/register")
-    public String registry(Model model, RegistryForm registryForm){
+    public String registry(RegistryForm registryForm){
         return "users/register";
     }
 

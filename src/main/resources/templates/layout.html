@@ -28,7 +28,7 @@
                      </form>
                 </span>
                 <span th:if="${user}">
-                     <span>Hello, <b><span th:text="${user}"></span></b></span>
+                     <span>Hello, <b><span th:text="${user.fullName}"></span></b></span>
                      <form method="post" th:action="@{/users/logout}">
                          <input type="submit" value="Logout"/>
                      </form>

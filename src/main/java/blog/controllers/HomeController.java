@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model){
 
+
         List<Post> latest5Posts = postService.findLatest5();
         model.addAttribute("latest5posts", latest5Posts);
 
@@ -34,15 +36,6 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping("/posts/view/{id}")
-    public String view(@PathVariable("id") Long id, Model model){
-        Post post = postService.findById(id);
-        if(post == null){
-            notifyService.addErrorMessage("Cannot find post #" + id);
-            return "redirect:/";
-        }
-        model.addAttribute("post", post);
-        return "posts/view";
-    }
+
 
 }

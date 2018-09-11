@@ -8,8 +8,6 @@ $(function() {
     }, 3000);
 
 
-    $scope.firstName = "hohol"
-
 
 
 

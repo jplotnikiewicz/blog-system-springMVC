@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username, String password) {
         User user = userRepo.findByUsername(username, password);
         if(user != null)
-            httpSession.setAttribute(LOGGED_USER_SESSION_KEY, user.getFullName());
+            httpSession.setAttribute(LOGGED_USER_SESSION_KEY, user);
         return user;
     }
 
