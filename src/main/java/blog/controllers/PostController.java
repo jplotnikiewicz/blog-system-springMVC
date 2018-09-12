@@ -11,9 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -58,6 +60,15 @@ public class PostController {
         }
         model.addAttribute("post", post);
         return "posts/view";
+    }
+
+    @RequestMapping("/posts")
+    public String viewAllPosts(Model model){
+
+        List<Post> allPosts = postService.findAll();
+        model.addAttribute("posts", allPosts);
+
+        return "posts/viewAll";
     }
 
 

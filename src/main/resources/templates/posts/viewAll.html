@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::site-head">
+    <title>All Posts</title>
+</head>
+<body>
+    <header th:replace="layout::site-header"/>
+    <h1>All Posts: </h1>
+    <main>
+        <article th:each="post:${posts}">
+            <a href="#" th:text="${post.title}" th:href="@{/posts/view/{id}/(id=${post.id})}"></a>
+        </article>
+    </main>
+
+
+
+
+</body>
+</html>
