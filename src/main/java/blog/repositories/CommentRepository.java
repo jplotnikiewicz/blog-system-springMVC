@@ -9,6 +9,4 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Query("SELECT c From Comment c LEFT JOIN c.postId ORDER BY c.date DESC")
-    List<Comment> findCommentsByPostId(Pageable pageable);
 }

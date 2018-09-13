@@ -20,19 +20,16 @@ public class User {
     @Column(length = 100)
     private String fullName;
 
+    private String email;
+
+
+
     @OneToMany(mappedBy = "author")
     private Set<Post> posts = new HashSet<>();
 
     public User(){}
 
     public User(String username, String fullName) {
-        this.username = username;
-        this.fullName = fullName;
-    }
-
-    public User(Long id, String username, String fullName){
-
-        this.id = id;
         this.username = username;
         this.fullName = fullName;
     }

@@ -36,6 +36,8 @@ public class PostController {
     public String writePost(PostForm postForm){
         return "posts/create";
     }
+
+
     @RequestMapping(value = "posts/create", method = RequestMethod.POST)
     public String  createPost(@Valid PostForm postForm, BindingResult bindingResult){
 
