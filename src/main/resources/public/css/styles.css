@@ -1,16 +1,3 @@
-
-body>header{
-background-color:red;
-width: 100%;
-height: 38px;
-}
-
-body>header>div.dropdown{
-float:right;
-}
-
-
-
 body>aside {
   float: right;
   width: 200px;
@@ -53,6 +40,16 @@ margin-top: 18px;
 #logged-in-info form {
 display: inline-block;
 margin-right: 10px;
+}
+
+body>header{
+background-color:red;
+width: 100%;
+height: 38px;
+}
+
+body>header>div.dropdown{
+float:right;
 }
 
 
