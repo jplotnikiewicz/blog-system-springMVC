@@ -18,16 +18,25 @@
 <body>
     <header th:fragment="site-header" th:remove="tag">
         <header>
-            <nav class="navbar">
+            <nav class="navbar justify-content-between navbar-light bg-light">
+                <span class="form-inline">
                     <a class="navbar-brand" href="index.html" th:href="@{/}">Home</a>
+                    <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
+                    <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
+                    <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
+                    <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
+                    <a class="navbar-brand" href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
+                </span>
+                <span class="form-inline" th:if="1">
                     <a class="navbar-brand" href="users/login.html" th:href="@{/users/login}">Login</a>
                     <a class="navbar-brand" href="users/register.html" th:href="@{/users/register}">Register</a>
-                    <a class="navbar-brand" href="posts/index.html" th:href="@{/posts}">Posts</a>
-                    <a class="navbar-brand" href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
+                </span>
+                <span class="form-inline" th:if="0">
+                    <a class="navbar-brand" href="users/login.html" th:href="@{/users/login}">Logout</a>
+                    <a class="navbar-brand" href="users/register.html" th:href="@{/users/register}">Admin Menu</a>
+                </span>
             </nav>
         </header>
-        <br/>
-
 
         <ul id="messages" th:with="notifyMessages=${session[T(blog.services
               .NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
