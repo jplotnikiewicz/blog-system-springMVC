@@ -53,6 +53,15 @@ public class PostController {
         return "redirect:/posts/view/"+ createdPost.getId();
     }
 
+    @RequestMapping(value = "posts/delete/{id}")
+    public String deletePost(@PathVariable("id") Long id, Model model){
+
+
+
+
+        return  "";
+    }
+
     @RequestMapping("/posts/view/{id}")
     public String view(@PathVariable("id") Long id, Model model){
         Post post = postService.findById(id);
