@@ -20,9 +20,8 @@ public class User {
     @Column(length = 100)
     private String fullName;
 
-    private String email;
-
-
+    @Column
+    private Integer userStatus;
 
     @OneToMany(mappedBy = "author")
     private Set<Post> posts = new HashSet<>();

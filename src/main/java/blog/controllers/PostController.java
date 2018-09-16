@@ -4,6 +4,7 @@ import blog.forms.PostForm;
 import blog.models.Post;
 import blog.models.User;
 import blog.services.*;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PostController {
@@ -53,13 +55,33 @@ public class PostController {
         return "redirect:/posts/view/"+ createdPost.getId();
     }
 
+    @RequestMapping(value = "posts/edit/{id}")
+    public String editPost(@PathVariable("id") Long id, Model model, PostForm postForm){
+
+        Map<String, Object> modelAtributes = model.asMap();
+        Post post = (Post) modelAtributes.get("post");
+        System.out.println(post.getId());
+
+        postForm.setBody(post.getBody());
+        postForm.setTitle(post.getTitle());
+
+        return "posts/create/" + post.getId();
+    }
+
+    @RequestMapping(value = "posts/create/{id}", method = RequestMethod.GET)
+    public String saveEditedPost(@PathVariable("id") Long id, @Valid PostForm postForm){
+        Post post = postService.findById(id);
+
+        post.setTitle(postForm.getTitle());
+
+        post.setBody(postForm.getBody());
+        return "redirect:/posts/view/" + id;
+    }
+
     @RequestMapping(value = "posts/delete/{id}")
     public String deletePost(@PathVariable("id") Long id, Model model){
-
-
-
-
-        return  "";
+        postService.deleteById(id);
+        return  "redirect:/";
     }
 
     @RequestMapping("/posts/view/{id}")

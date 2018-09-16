@@ -18,8 +18,8 @@
 </head>
 <body>
     <header th:fragment="site-header" th:remove="tag">
-        <header>
-            <nav class="navbar justify-content-between navbar-light ">
+        <header th:with="user=${session[T(blog.services.UserServiceImpl).LOGGED_USER_SESSION_KEY]}">
+            <nav class="navbar justify-content-between navbar-light">
                 <span class="form-inline">
                     <a class="navbar-brand" href="index.html" th:href="@{/}">Home</a>
                     <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
@@ -27,15 +27,15 @@
                     <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
                     <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
                 </span>
-                <span class="form-inline" th:if="!${session[T(blog.services.UserServiceImpl).LOGGED_USER_SESSION_KEY]}">
+                <span class="form-inline" th:if="!${user}">
                     <a class="navbar-brand" href="users/login.html" th:href="@{/users/login}">Login</a>
                     <a class="navbar-brand" href="users/register.html" th:href="@{/users/register}">Register</a>
                     <a class="navbar-brand" target="_blank" href="https://www.linkedin.com/in/jakub-p%C5%82otnikiewicz-8627a6107/"><img src="../public/img/In-2C-34px-R.png" th:src="@{/img/In-2C-34px-R.png}" /></a>
                 </span>
-                <span class="form-inline" th:if="${session[T(blog.services.UserServiceImpl).LOGGED_USER_SESSION_KEY]}">
-                    <a class="navbar-brand" href="users/login.html" th:href="@{/users/logout}">Logout, <span th:text="${session[T(blog.services.UserServiceImpl).LOGGED_USER_SESSION_KEY].username}"></span></a>
+                <span class="form-inline" th:if="${user}">
+                    <a class="navbar-brand" href="users/login.html" th:href="@{/users/logout}">Logout, <span th:text="${user.username}"></span></a>
 
-                    <span class="nav-item dropdown">
+                    <span th:if="${user.userStatus}==0" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="adminPanel" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Administrato Menu
                         </a>
