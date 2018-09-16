@@ -54,7 +54,7 @@ public class PostController {
 
         return "redirect:/posts/view/"+ createdPost.getId();
     }
-
+    //    TODO
     @RequestMapping(value = "posts/edit/{id}")
     public String editPost(@PathVariable("id") Long id, Model model, PostForm postForm){
 
@@ -67,7 +67,7 @@ public class PostController {
 
         return "posts/create/" + post.getId();
     }
-
+//    TODO
     @RequestMapping(value = "posts/create/{id}", method = RequestMethod.GET)
     public String saveEditedPost(@PathVariable("id") Long id, @Valid PostForm postForm){
         Post post = postService.findById(id);
