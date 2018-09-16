@@ -7,8 +7,4 @@ $(function() {
         $('#messages li.info').fadeOut();
     }, 3000);
 
-
-
-
-
 });
