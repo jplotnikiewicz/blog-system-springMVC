@@ -1,8 +1,10 @@
 package blog.controllers;
 
 import blog.models.Post;
+import blog.models.User;
 import blog.services.NotificationService;
 import blog.services.PostService;
+import blog.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +25,10 @@ public class HomeController {
     @Autowired
     private NotificationService notifyService;
 
+    @Autowired HttpSession httpSession;
+
     @RequestMapping("/")
     public String index(Model model){
-
 
         List<Post> latest5Posts = postService.findLatest5();
         model.addAttribute("latest5posts", latest5Posts);

@@ -1,12 +1,14 @@
 package blog.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +22,8 @@ public class User {
     @Column(length = 100)
     private String fullName;
 
-    @Column
+    @Column(scale = 2, precision = 0)
+    @NotNull
     private Integer userStatus;
 
     @OneToMany(mappedBy = "author")
@@ -73,6 +76,14 @@ public class User {
         this.posts = posts;
     }
 
+    public Integer getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -80,6 +91,9 @@ public class User {
                 ", username='" + username + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
                 ", fullName='" + fullName + '\'' +
+                ", userStatus=" + userStatus +
+                ", posts=" + posts +
                 '}';
     }
+
 }

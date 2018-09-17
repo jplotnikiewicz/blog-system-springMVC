@@ -58,17 +58,16 @@ public class PostController {
     @RequestMapping(value = "posts/edit/{id}")
     public String editPost(@PathVariable("id") Long id, Model model, PostForm postForm){
 
-        Map<String, Object> modelAtributes = model.asMap();
-        Post post = (Post) modelAtributes.get("post");
-        System.out.println(post.getId());
-
+        Post post = postService.findById(id);
+        //model.addAttribute()
+        postForm = new PostForm();
         postForm.setBody(post.getBody());
         postForm.setTitle(post.getTitle());
 
-        return "posts/create/" + post.getId();
+        return "/posts/create/"+post.getId();
     }
 
-    @RequestMapping(value = "posts/create/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "posts/edit/{id}", method = RequestMethod.POST)
     public String saveEditedPost(@PathVariable("id") Long id, @Valid PostForm postForm){
         Post post = postService.findById(id);
 
