@@ -20,6 +20,9 @@
                 </span>
             </div>
             <p class="content" th:utext="${post.body}">Post Content</p>
+            <hr>
+            <a href="#"th:href="@{/posts/delete/{id}/(id=${post.id})}"><button type="button" class="btn btn-secondary">Delete</button></a>
+            <a href="#"th:href="@{/posts/edit/{id}/(id=${post.id})}"><button type="button" class="btn btn-secondary">Edit</button></a>
         </article>
     </main>
 

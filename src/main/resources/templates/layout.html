@@ -5,35 +5,53 @@
 
     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}"/>
 
-    <script src="../public/js/jquery-3.1.0.min.js" th:src="@{/js/jquery-3.1.0.min.js}"></script>
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <script src="../public/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
     <script src="../public/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script src="../public/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
-
-    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}"/>
     <script src="../public/js/blog-scripts.js" th:src="@{/js/blog-scripts.js}"></script>
+
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}"/>
+
 
     <!--<meta th:include="this::head" th:remove="tag"/>-->
 </head>
 <body>
     <header th:fragment="site-header" th:remove="tag">
-        <header>
+        <header th:with="user=${session[T(blog.services.UserServiceImpl).LOGGED_USER_SESSION_KEY]}">
+            <nav class="navbar justify-content-between navbar-light">
+                <span class="form-inline">
+                    <a class="navbar-brand" href="index.html" th:href="@{/}">Home</a>
+                    <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
+                    <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
+                    <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
+                    <a class="navbar-brand" href="#" th:href="@{#}"> THEME </a>
+                </span>
+                <span class="form-inline" th:if="!${user}">
+                    <a class="navbar-brand" href="users/login.html" th:href="@{/users/login}">Login</a>
+                    <a class="navbar-brand" href="users/register.html" th:href="@{/users/register}">Register</a>
+                    <a class="navbar-brand" target="_blank" href="https://www.linkedin.com/in/jakub-p%C5%82otnikiewicz-8627a6107/"><img src="../public/img/In-2C-34px-R.png" th:src="@{/img/In-2C-34px-R.png}" /></a>
+                </span>
+                <span class="form-inline" th:if="${user}">
+                    <a class="navbar-brand" href="users/login.html" th:href="@{/users/logout}">Logout, <span th:text="${user.username}"></span></a>
 
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="loginMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    User Menu
-                </button>
-                <div class="dropdown-menu" aria-labelledby="loginMenu">
-                    <a class="dropdown-item" href="index.html" th:href="@{/}">Home</a>
-                    <a class="dropdown-item" href="users/login.html" th:href="@{/users/login}">Login</a>
-                    <a class="dropdown-item" href="users/register.html" th:href="@{/users/register}">Register</a>
-                    <a class="dropdown-item" href="posts/index.html" th:href="@{/posts}">Posts</a>
-                    <a class="dropdown-item" href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
-                </div>
-            </div>
+                    <span th:if="${user.userStatus}==0" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminPanel" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Administrato Menu
+                        </a>
+                        <span class="dropdown-menu" aria-labelledby="adminPanel">
+                            <a class="dropdown-item" href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
+                            <a class="dropdown-item" href="#" th:href="@{#}">Function</a>
+                            <a class="dropdown-item" href="#" th:href="@{#}">Function</a>
+                            <a class="dropdown-item" href="#" th:href="@{#}">Function</a>
+                        </span>
+                    </span>
+
+                    <a class="navbar-brand" target="_blank" href="https://www.linkedin.com/in/jakub-p%C5%82otnikiewicz-8627a6107/"><img src="../public/img/In-2C-34px-R.png" th:src="@{/img/In-2C-34px-R.png}" /></a>
+                </span>
+            </nav>
+            <hr>
         </header>
-        <br/>
-
 
         <ul id="messages" th:with="notifyMessages=${session[T(blog.services
               .NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
@@ -45,7 +63,6 @@
           T(blog.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY)}"></span>
         </ul>
 
-        <br/>
 
     </header>
     <footer  th:fragment="site-footer">
