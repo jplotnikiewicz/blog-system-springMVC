@@ -54,35 +54,6 @@ public class PostController {
 
         return "redirect:/posts/view/"+ createdPost.getId();
     }
-    //    TODO
-    @RequestMapping(value = "posts/edit/{id}")
-    public String editPost(@PathVariable("id") Long id, Model model, PostForm postForm){
-
-        Map<String, Object> modelAtributes = model.asMap();
-        Post post = (Post) modelAtributes.get("post");
-        System.out.println(post.getId());
-
-        postForm.setBody(post.getBody());
-        postForm.setTitle(post.getTitle());
-
-        return "posts/create/" + post.getId();
-    }
-//    TODO
-    @RequestMapping(value = "posts/create/{id}", method = RequestMethod.GET)
-    public String saveEditedPost(@PathVariable("id") Long id, @Valid PostForm postForm){
-        Post post = postService.findById(id);
-
-        post.setTitle(postForm.getTitle());
-
-        post.setBody(postForm.getBody());
-        return "redirect:/posts/view/" + id;
-    }
-
-    @RequestMapping(value = "posts/delete/{id}")
-    public String deletePost(@PathVariable("id") Long id, Model model){
-        postService.deleteById(id);
-        return  "redirect:/";
-    }
 
     @RequestMapping(value = "posts/edit/{id}")
     public String editPost(@PathVariable("id") Long id, Model model, PostForm postForm){
