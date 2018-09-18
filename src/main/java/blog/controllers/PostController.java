@@ -56,25 +56,26 @@ public class PostController {
     }
 
     @RequestMapping(value = "posts/edit/{id}")
-    public String editPost(@PathVariable("id") Long id, Model model, PostForm postForm){
+    public String editPost( @PathVariable("id") Long id, Model model, PostForm postForm){
 
         Post post = postService.findById(id);
-        //model.addAttribute()
-        postForm = new PostForm();
-        postForm.setBody(post.getBody());
-        postForm.setTitle(post.getTitle());
+        model.addAttribute("post", post);
+        postService.setPostInSession(post);
 
-        return "/posts/create/"+post.getId();
+        return "/posts/edit";
     }
 
     @RequestMapping(value = "posts/edit/{id}", method = RequestMethod.POST)
-    public String saveEditedPost(@PathVariable("id") Long id, @Valid PostForm postForm){
-        Post post = postService.findById(id);
+    public String saveEditedPost( @PathVariable("id") Long id, Model model, @Valid PostForm postForm) {
+
+        Post post = postService.getPostFromSession();
 
         post.setTitle(postForm.getTitle());
-
         post.setBody(postForm.getBody());
-        return "redirect:/posts/view/" + id;
+
+        post = postService.edit(post);
+
+        return "redirect:/posts/view/" + post.getId();
     }
 
     @RequestMapping(value = "posts/delete/{id}")
@@ -91,6 +92,7 @@ public class PostController {
             return "redirect:/";
         }
         model.addAttribute("post", post);
+
         return "posts/view";
     }
 

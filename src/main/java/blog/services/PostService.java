@@ -12,6 +12,8 @@ public interface PostService {
     Post create(Post post);
     Post edit(Post post);
     void deleteById(Long id);
+    void setPostInSession(Post post);
+    Post getPostFromSession();
 
 
 }

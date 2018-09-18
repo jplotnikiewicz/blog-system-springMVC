@@ -10,11 +10,11 @@
 
     <form method="post" th:object="${postForm}">
         <div><label for="title">Post title</label></div>
-        <input id="title" type="text" name="title" th:value="${postForm.title}"/>
+        <input id="title" type="text" name="title" th:value="*{title}"/>
         <br><br>
         <div> <label for="body">Post Content:</label></div>
 
-        <textarea id="body" name="body" th:value="${postForm.body}" rows="10" cols="250"> content ...</textarea>
+        <textarea id="body" name="body" th:value="*{body}" rows="10" cols="150"> content ...</textarea>
         <br>
 
         <div><input type="submit" value="Create Post"></div>

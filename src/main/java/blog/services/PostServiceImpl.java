@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 @Service
 public class PostServiceImpl implements PostService {
 
+    public static final String POST_SESSION_KEY = "post";
+
     @Autowired
     private PostRepository postRepo;
 
@@ -61,4 +63,17 @@ public class PostServiceImpl implements PostService {
 
         this.postRepo.deleteById(id);
     }
+
+    @Override
+    public void setPostInSession(Post post) {
+        httpSession.setAttribute(POST_SESSION_KEY, post);
+    }
+
+    @Override
+    public Post getPostFromSession() {
+        Post post = (Post) httpSession.getAttribute(POST_SESSION_KEY);
+        httpSession.removeAttribute(POST_SESSION_KEY);
+        return post;
+    }
+
 }
