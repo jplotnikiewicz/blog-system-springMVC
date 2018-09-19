@@ -33,8 +33,8 @@ public class HomeController {
         List<Post> latest5Posts = postService.findLatest5();
         model.addAttribute("latest5posts", latest5Posts);
 
-        List<Post> latest3Posts =latest5Posts.stream().limit(3).collect(Collectors.toList());Collectors.toList();
-        model.addAttribute("latest3posts", latest3Posts);
+        List<Post> posts = postService.findAll();
+        model.addAttribute("allPosts", posts);
 
         return "index";
     }

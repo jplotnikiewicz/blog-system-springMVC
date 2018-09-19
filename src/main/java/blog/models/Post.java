@@ -83,4 +83,5 @@ public class Post {
                 ", date=" + date +
                 '}';
     }
+
 }

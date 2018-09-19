@@ -18,8 +18,7 @@
 
 </aside>
 <main id="posts">
-    <article th:each="p:${latest3posts}">
-        <h2 class="title" th:text="${p.title}">Post Title</h2>
+    <article th:each="p:${allPosts}">
         <div class="date">
             <i>Posted on</i>
             <span th:text="${#dates.format(p.date,'dd-MM-yyyy')}">22-May-2016</span>
@@ -28,7 +27,14 @@
           <span th:text="${p.author.fullName!=null?p.author.fullName:p.author.username}">Svetlin Nakov</span>
         </span>
         </div>
-        <p class="content" th:utext="${p.body}">Post content</p>
+        <h2 class="title" th:text="${p.title}">Post Title</h2>
+        <span id="body">
+            <p class="content" th:if="${#strings.length(p.body)< 250}" th:utext="${p.body}">Post content</p>
+            <span th:if="${#strings.length(p.body)> 250}">
+                <p class="content"  th:utext="${#strings.substring(p.body, 0, 500)}">Post content</p>
+                <a th:href="@{/posts/view/{id}/(id=${p.id})}">Read More</button></a>
+            </span>
+        </span>
     </article>
 </main>
 
