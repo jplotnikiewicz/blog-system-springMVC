@@ -1,5 +1,6 @@
 package blog.services;
 
+import blog.forms.PostForm;
 import blog.models.Post;
 import blog.models.User;
 import blog.repositories.PostRepository;
@@ -49,12 +50,30 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post create(Post post) {
-        return this.postRepo.save(post);
+    public Post create(PostForm postForm) {
+
+        User author =(User) httpSession.getAttribute( UserServiceImpl.LOGGED_USER_SESSION_KEY);
+
+
+        Post newPost = new Post();
+        newPost.setBody(postForm.getBody());
+        newPost.setTitle(postForm.getTitle());
+        newPost.setAuthor(author);
+
+
+
+        return this.postRepo.save(newPost);
     }
 
+
     @Override
-    public Post edit(Post post) {
+    public Post edit(PostForm postForm) {
+
+        Post post = getPostFromSession();
+
+        post.setTitle(postForm.getTitle());
+        post.setBody(postForm.getBody());
+
         return this.postRepo.save(post);
     }
 

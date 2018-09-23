@@ -6,9 +6,11 @@
     <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}"/>
 
     <script src="../public/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script src="../public/js/angular.min.js" th:src="@{/js/angular.min.js}"></script>
     <script src="../public/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script src="../public/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
     <script src="../public/js/blog-scripts.js" th:src="@{/js/blog-scripts.js}"></script>
+    <script src="../public/js/blog-controlers.js" th:src="@{/js/blog-controlers.js}"></script>
 
     <link rel="stylesheet" href="../public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="../public/css/styles.css" th:href="@{/css/styles.css}"/>
@@ -16,7 +18,7 @@
 
     <!--<meta th:include="this::head" th:remove="tag"/>-->
 </head>
-<body>
+<body >
     <header th:fragment="site-header" th:remove="tag">
         <header th:with="user=${session[T(blog.services.UserServiceImpl).LOGGED_USER_SESSION_KEY]}">
             <nav class="navbar justify-content-between navbar-light">

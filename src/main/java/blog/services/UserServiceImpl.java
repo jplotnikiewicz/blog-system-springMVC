@@ -1,5 +1,6 @@
 package blog.services;
 
+import blog.forms.RegistryForm;
 import blog.models.User;
 import blog.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User create(User user) {
+    public User create(RegistryForm registryForm) {
+
+        User user = new User();
+        user.setFullName(registryForm.getFullName());
+        user.setUsername(registryForm.getUsername());
+        user.setPasswordHash(registryForm.getPassword());
+
+
         return this.userRepo.save(user);
     }
 

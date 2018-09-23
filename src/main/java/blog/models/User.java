@@ -29,11 +29,14 @@ public class User {
     @OneToMany(mappedBy = "author")
     private Set<Post> posts = new HashSet<>();
 
-    public User(){}
+    public User(){
+        userStatus = 10;
+    }
 
     public User(String username, String fullName) {
         this.username = username;
         this.fullName = fullName;
+        userStatus = 10;
     }
 
     public Long getId() {

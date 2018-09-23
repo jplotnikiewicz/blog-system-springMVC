@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 
-<head th:replace="layout::site-head">
+<head th:replace="layout::site-head" >
     <title>Spring MVC Blog</title>
 </head>
 
-<body>
+<body ng-app="app" ng-controller="homeController">
 
 <header th:replace="layout::site-header" />
 <aside >
@@ -17,7 +17,7 @@
         </div>
 
 </aside>
-<main id="posts">
+<main id="posts" >
     <article th:each="p:${allPosts}">
         <div class="date">
             <i>Posted on</i>
@@ -28,15 +28,14 @@
         </span>
         </div>
         <h2 class="title" th:text="${p.title}">Post Title</h2>
-        <span id="body">
-            <p class="content" th:if="${#strings.length(p.body)< 250}" th:utext="${p.body}">Post content</p>
-            <span th:if="${#strings.length(p.body)> 250}">
-                <p class="content"  th:utext="${#strings.substring(p.body, 0, 500)}">Post content</p>
-                <a th:href="@{/posts/view/{id}/(id=${p.id})}">Read More</button></a>
-            </span>
-        </span>
+        <span class="content" th:text="${p.body}">Post content</span>
+        <a th:if="${#strings.length(p.body)> 500}" th:href="@{/posts/view/{id}/(id=${p.id})}">Read More</button></a>
+
     </article>
+
+
 </main>
+
 
 <footer th:replace="layout::site-footer" />
 </body>

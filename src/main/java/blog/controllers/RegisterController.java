@@ -31,14 +31,8 @@ public class RegisterController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registryPage(@Valid RegistryForm registryForm, BindingResult bindingResult){
 
-        User user = new User();
-        user.setFullName(registryForm.getFullName());
-        user.setUsername(registryForm.getUsername());
-        user.setPasswordHash(registryForm.getPassword());
-
-        userService.create(user);
+        userService.create(registryForm);
         notificationService.addInfoMessage("Register succesfull");
-
         return "redirect:/";
     }
 

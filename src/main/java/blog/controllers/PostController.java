@@ -43,14 +43,7 @@ public class PostController {
     @RequestMapping(value = "posts/create", method = RequestMethod.POST)
     public String  createPost(@Valid PostForm postForm, BindingResult bindingResult){
 
-        User author =(User) httpSession.getAttribute( UserServiceImpl.LOGGED_USER_SESSION_KEY);
-
-        Post newPost = new Post();
-        newPost.setBody(postForm.getBody());
-        newPost.setTitle(postForm.getTitle());
-        newPost.setAuthor(author);
-
-        Post createdPost = postService.create(newPost);
+        Post createdPost = postService.create(postForm);
 
         return "redirect:/posts/view/"+ createdPost.getId();
     }
@@ -68,12 +61,7 @@ public class PostController {
     @RequestMapping(value = "posts/edit/{id}", method = RequestMethod.POST)
     public String saveEditedPost( @PathVariable("id") Long id, Model model, @Valid PostForm postForm) {
 
-        Post post = postService.getPostFromSession();
-
-        post.setTitle(postForm.getTitle());
-        post.setBody(postForm.getBody());
-
-        post = postService.edit(post);
+        Post post = postService.edit(postForm);
 
         return "redirect:/posts/view/" + post.getId();
     }

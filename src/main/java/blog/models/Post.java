@@ -1,11 +1,16 @@
 package blog.models;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "posts")
 public class Post {
+
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +28,17 @@ public class Post {
     @Column(nullable = false)
     private Date date = new Date();
 
+
+
     public Post(){}
 
-    public Post(Long id, String title, String body, User author){
-
+    public Post(Long id, String title, String body, User author) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.author = author;
     }
+
 
     public Long getId() {
         return id;

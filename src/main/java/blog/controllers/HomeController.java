@@ -36,6 +36,7 @@ public class HomeController {
         List<Post> posts = postService.findAll();
         model.addAttribute("allPosts", posts);
 
+
         return "index";
     }
 
