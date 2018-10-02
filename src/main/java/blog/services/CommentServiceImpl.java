@@ -4,11 +4,13 @@ import blog.models.Comment;
 import blog.models.Post;
 import blog.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 
 
@@ -17,7 +19,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> findAllForThePost(Post post) {
-        return null;
+
+        List<Comment> comments = commentRepository.findCommentsByThePostId(post.getId());
+        System.out.print(comments);
+        return comments;
     }
 
     @Override

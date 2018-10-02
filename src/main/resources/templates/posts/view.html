@@ -8,8 +8,8 @@
 <body>
     <header th:replace="layout :: site-header"/>
 
-    <main id="posts">
-        <article>
+    <main >
+        <article class="posts">
             <h2 class="title" th:text="${post.title}">Post Title</h2>
             <div class="date">
                 <i>Posted on</i>
@@ -20,11 +20,27 @@
                 </span>
             </div>
             <p class="content" th:utext="${post.body}">Post Content</p>
-            <hr>
+
             <a href="#"th:href="@{/posts/delete/{id}/(id=${post.id})}"><button type="button" class="btn btn-secondary">Delete</button></a>
             <a href="#"th:href="@{/posts/edit/{id}/(id=${post.id})}"><button type="button" class="btn btn-secondary">Edit</button></a>
+            <hr>
         </article>
+
+        <h4>Comments</h4>
+
+        <article   th:each="c:${comments}">
+            <p class="comment" th:text="${c.body}"></p>
+        </article>
+
+
+        <form method="post" th:object="${commentForm}">
+            <textarea id="body" name="body" th:value="*{body}" rows="10" cols="100"> content ...</textarea>
+            <div><input type="submit" value="Create Comment"></div>
+        </form>
+
     </main>
+
+
 
 <footer th:replace="layout :: site-footer"/>
 

@@ -9,9 +9,6 @@ import java.util.Date;
 @Table(name = "posts")
 public class Post {
 
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +24,6 @@ public class Post {
 
     @Column(nullable = false)
     private Date date = new Date();
-
-
 
     public Post(){}
 

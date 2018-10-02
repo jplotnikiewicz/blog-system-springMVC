@@ -7,6 +7,7 @@ import java.util.Date;
 @Table(name = "comments")
 public class Comment {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -23,24 +24,11 @@ public class Comment {
     @Column(nullable = false)
     private Long postId;
 
+    @Column(nullable = false)
+    private String author;
 
+    public Comment(){
 
-    public Comment() {
-    }
-
-    public Comment(Long id, String body, Date date, Long postId) {
-        Id = id;
-        this.body = body;
-        this.date = date;
-        this.postId = postId;
-        this.parentCommentId = new Long (0);
-    }
-    public Comment(Long id, String body, Date date, Long postId, Long parentCommentId) {
-        Id = id;
-        this.body = body;
-        this.date = date;
-        this.postId = postId;
-        this.parentCommentId = parentCommentId;
     }
 
     public Long getId() {
@@ -67,14 +55,6 @@ public class Comment {
         this.date = date;
     }
 
-    public Long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
-    }
-
     public Long getParentCommentId() {
         return parentCommentId;
     }
@@ -83,17 +63,31 @@ public class Comment {
         this.parentCommentId = parentCommentId;
     }
 
+    public Long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
                 "Id=" + Id +
                 ", body='" + body + '\'' +
                 ", date=" + date +
-                ", postId=" + postId +
                 ", parentCommentId=" + parentCommentId +
+                ", postId=" + postId +
+                ", author='" + author + '\'' +
                 '}';
     }
-
-
-
 }

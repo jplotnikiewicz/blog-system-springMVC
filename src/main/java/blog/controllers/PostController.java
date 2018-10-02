@@ -1,6 +1,7 @@
 package blog.controllers;
 
 import blog.forms.PostForm;
+import blog.models.Comment;
 import blog.models.Post;
 import blog.models.User;
 import blog.services.*;
@@ -33,6 +34,9 @@ public class PostController {
 
     @Autowired
     HttpSession httpSession;
+
+    @Autowired
+    CommentService commentService;
 
     @RequestMapping("/posts/create")
     public String writePost(PostForm postForm){
@@ -80,6 +84,11 @@ public class PostController {
             return "redirect:/";
         }
         model.addAttribute("post", post);
+
+        List<Comment> comments = commentService.findAllForThePost(post);
+
+        model.addAttribute("comments", comments);
+
 
         return "posts/view";
     }
