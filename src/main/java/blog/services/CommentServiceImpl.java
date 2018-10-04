@@ -21,7 +21,6 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> findAllForThePost(Post post) {
 
         List<Comment> comments = commentRepository.findCommentsByThePostId(post.getId());
-        System.out.print(comments);
         return comments;
     }
 

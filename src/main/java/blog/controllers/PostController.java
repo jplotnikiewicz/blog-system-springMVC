@@ -1,5 +1,6 @@
 package blog.controllers;
 
+import blog.forms.CommentForm;
 import blog.forms.PostForm;
 import blog.models.Comment;
 import blog.models.Post;
@@ -76,8 +77,9 @@ public class PostController {
         return  "redirect:/";
     }
 
+
     @RequestMapping("/posts/view/{id}")
-    public String view(@PathVariable("id") Long id, Model model){
+    public String view(@PathVariable("id") Long id, Model model, CommentForm commentForm){
         Post post = postService.findById(id);
         if(post == null){
             notifyService.addErrorMessage("Cannot find post #" + id);
@@ -89,8 +91,21 @@ public class PostController {
 
         model.addAttribute("comments", comments);
 
-
         return "posts/view";
+    }
+
+    @RequestMapping(value = "/posts/view/{id}", method = RequestMethod.POST)
+    public String view2(@PathVariable("id") Long id, Model model, @Valid CommentForm commentForm){
+
+        Comment comment = new Comment();
+        comment.setBody(commentForm.getBody());
+        comment.setPostId(id);
+        comment.setAuthor("anonymus");
+
+        System.out.print(comment);
+        commentService.create(comment);
+
+        return "redirect:/posts/view/"+id;
     }
 
     @RequestMapping("/posts")
