@@ -80,7 +80,9 @@ public class PostController {
 
     @RequestMapping("/posts/view/{id}")
     public String view(@PathVariable("id") Long id, Model model, CommentForm commentForm){
+
         Post post = postService.findById(id);
+
         if(post == null){
             notifyService.addErrorMessage("Cannot find post #" + id);
             return "redirect:/";
@@ -88,7 +90,7 @@ public class PostController {
         model.addAttribute("post", post);
 
         List<Comment> comments = commentService.findAllForThePost(post);
-
+        System.out.print(comments);
         model.addAttribute("comments", comments);
 
         return "posts/view";
@@ -97,13 +99,7 @@ public class PostController {
     @RequestMapping(value = "/posts/view/{id}", method = RequestMethod.POST)
     public String view2(@PathVariable("id") Long id, Model model, @Valid CommentForm commentForm){
 
-        Comment comment = new Comment();
-        comment.setBody(commentForm.getBody());
-        comment.setPostId(id);
-        comment.setAuthor("anonymus");
-
-        System.out.print(comment);
-        commentService.create(comment);
+        commentService.create(commentForm, id);
 
         return "redirect:/posts/view/"+id;
     }

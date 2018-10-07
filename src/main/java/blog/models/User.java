@@ -95,7 +95,6 @@ public class User {
                 ", passwordHash='" + passwordHash + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", userStatus=" + userStatus +
-                ", posts=" + posts +
                 '}';
     }
 

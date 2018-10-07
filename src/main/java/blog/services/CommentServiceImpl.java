@@ -1,11 +1,14 @@
 package blog.services;
 
+import blog.forms.CommentForm;
 import blog.models.Comment;
 import blog.models.Post;
+import blog.models.User;
 import blog.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +19,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    HttpSession httpSession;
 
     @Override
     public List<Comment> findAllForThePost(Post post) {
@@ -41,7 +47,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment create(Comment comment) {
+    public Comment create(CommentForm commentForm, Long id) {
+
+        User author =(User) httpSession.getAttribute( UserServiceImpl.LOGGED_USER_SESSION_KEY);
+
+        Comment comment = new Comment();
+        comment.setBody(commentForm.getBody());
+        comment.setPostId(id);
+        comment.setAuthor(author);
+
         return this.commentRepository.save(comment);
     }
 

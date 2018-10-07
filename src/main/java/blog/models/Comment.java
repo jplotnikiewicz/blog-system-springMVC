@@ -24,8 +24,8 @@ public class Comment {
     @Column(nullable = false)
     private Long postId;
 
-    @Column(nullable = false)
-    private String author;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private User author;
 
     public Comment(){
 
@@ -71,11 +71,11 @@ public class Comment {
         this.postId = postId;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 

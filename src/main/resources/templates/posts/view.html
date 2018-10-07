@@ -13,10 +13,10 @@
             <h2 class="title" th:text="${post.title}">Post Title</h2>
             <div class="date">
                 <i>Posted on</i>
-                <span th:text="${#dates.format(post.date, 'dd-MMM-yyyy')}">22-May-2016</span>
+                <span th:text="${#dates.format(post.date, 'dd-MM-yyyy')}">22-May-2016</span>
                 <span th:if="${post.author}" th:remove="tag">
                     <i>by</i>
-                    <span th:text="${post.author.fullName != null ? post.author.fullName : post.author.username}">Svetlin Nakov</span>
+                    <span th:text="${post.author.username}">Svetlin Nakov</span>
                 </span>
             </div>
             <p class="content" th:utext="${post.body}">Post Content</p>
@@ -25,16 +25,21 @@
             <a href="#"th:href="@{/posts/edit/{id}/(id=${post.id})}"><button type="button" class="btn btn-secondary">Edit</button></a>
             <hr>
         </article>
-
-        <h4>Comments</h4>
-
-        <article   th:each="c:${comments}">
-            <p class="comment" th:text="${c.body}"> <img src="" /></p>
+        <article id="comment">
+            <h4>Comments</h4>
+            <hr>
+            <div   th:each="c:${comments}">
+                <span th:if="${c.author}" th:remove="tag">
+                    <span class="commentAuthor" th:text = "${c.author.username}"></span>
+                </span>
+                <span th:text = "${#dates.format(c.date, 'dd-MM-yyyy')}"></span>
+                <p class="comment" th:text="${c.body}"> </p>
+                <hr>
+            </div>
         </article>
 
-
-        <form method="post" th:object="${commentForm}">
-            <textarea id="body" name="body" th:value="*{body}" rows="10" cols="100"> content ...</textarea>
+        <form id="commentForm" method="post" th:object="${commentForm}">
+            <textarea  name="body" th:value="*{body}"> content ...</textarea>
             <div><input type="submit" value="Create Comment"></div>
         </form>
 
