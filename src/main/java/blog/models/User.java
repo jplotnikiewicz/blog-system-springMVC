@@ -29,6 +29,10 @@ public class User {
     @OneToMany(mappedBy = "author")
     private Set<Post> posts = new HashSet<>();
 
+    @OneToOne
+    private Avatar avatar;
+
+
     public User(){
         userStatus = 10;
     }
@@ -85,6 +89,14 @@ public class User {
 
     public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
 
     @Override
